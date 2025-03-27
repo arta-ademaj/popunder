@@ -32,22 +32,6 @@
             repeat();
         }
     });
-
-    var scrollOpened = false;
-    document.addEventListener('scroll', function () {
-        if (!isClicked && !scrollOpened) {
-            repeat();
-            scrollOpened = true;
-        }
-    });
-
-    document.addEventListener('mouseleave', function (event) {
-        if (event.clientY < 0 && !isClicked) {
-            repeat();
-        }
-    });
-
-
 </script>
 
 
