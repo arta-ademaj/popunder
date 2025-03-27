@@ -20,14 +20,14 @@
 
 
 <script>
-    var isClicked = false;
     function repeat() {
         window.open('https://www.google.com', '_blank', 'width=500,height=500');
         isClicked = true;
     }
 
-    document.addEventListener('mouseleave', function (event) {
-        if (event.clientY < 0 && !isClicked) {
+    document.addEventListener('click', function () {
+        if (!isClicked) {
+            isClicked = true;
             repeat();
         }
     });
