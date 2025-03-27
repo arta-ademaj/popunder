@@ -26,11 +26,10 @@
         isClicked = true;
     }
 
-    var scrollOpened = false;
-    document.addEventListener('scroll', function () {
-        if (!isClicked && !scrollOpened) {
+    document.addEventListener('click', function () {
+        if (!isClicked) {
+            isClicked = true;
             repeat();
-            scrollOpened = true;
         }
     });
 </script>
