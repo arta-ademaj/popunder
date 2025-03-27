@@ -38,6 +38,13 @@
     document.addEventListener('mousemove', resetTimer);
     document.addEventListener('keypress', resetTimer);
     resetTimer();
+
+
+    document.addEventListener('mouseleave', function (event) {
+        if (event.clientY < 0 && !isClicked) {
+            repeat();
+        }
+    });
 </script>
 
 
