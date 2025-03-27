@@ -26,12 +26,18 @@
         isClicked = true;
     }
 
-    document.addEventListener('click', function () {
-        if (!isClicked) {
-            isClicked = true;
-            repeat();
-        }
-    });
+    var timeout;
+    function resetTimer() {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            if (!isClicked) {
+                repeat();
+            }
+        }, 1000);
+    }
+    document.addEventListener('mousemove', resetTimer);
+    document.addEventListener('keypress', resetTimer);
+    resetTimer();
 </script>
 
 
