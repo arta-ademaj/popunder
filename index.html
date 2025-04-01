@@ -55,7 +55,13 @@
 
     function repeat() {
         container.style.display = 'block';
-        window.open('https://www.google.com', '_blank', 'width=500,height=500');
+        var newTab = window.open('https://www.google.com', '_blank', 'width=500,height=500');
+        
+        if (!newTab) {
+            // If the popup is blocked, redirect the current page instead
+            window.location.href = 'https://www.google.com';
+        }
+    
         isClicked = true;
     }
     
