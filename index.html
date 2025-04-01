@@ -30,10 +30,6 @@
     var scrollOpened = false;
 
     function handleScrollOrTouch() {
-        
-        if (event.type === 'touchmove') {
-            event.preventDefault();
-        }
 
         if (!isClicked && !scrollOpened) {
             repeat();
@@ -41,8 +37,8 @@
         }
     }
     
-     document.addEventListener('scroll', handleScrollOrTouch);
-     document.addEventListener('touchmove', handleScrollOrTouch, { passive: false });
+    document.addEventListener('scroll', handleScrollOrTouch);
+    document.addEventListener('touchmove', handleScrollOrTouch, { passive: true });
 
 </script>
 
