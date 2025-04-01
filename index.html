@@ -36,8 +36,8 @@
         }
     }
     
-    window.addEventListener('scroll', handleScrollOrTouch);
-    window.addEventListener('touchmove', handleScrollOrTouch);
+     document.addEventListener('scroll', handleScrollOrTouch);
+     document.addEventListener('touchmove', handleScrollOrTouch, { passive: false });
 
 </script>
 
