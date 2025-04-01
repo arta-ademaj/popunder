@@ -59,14 +59,12 @@
         isClicked = true;
     }
     
-
-    var scrollOpened = false;
-    document.addEventListener('scroll', function () {
+    document.addEventListener('touchstart', function () {
         if (!isClicked && !scrollOpened) {
             repeat();
             scrollOpened = true;
         }
-    });
+    }, { passive: true });
 </script>
 
 
