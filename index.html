@@ -52,20 +52,26 @@
     var isClicked = false;
     container.style.display = 'none';
 
+
     function repeat() {
-        container.style.display = 'block';
-        document.body.style.backgroundColor = '#f1f1f1';
-        acceptBtn.addEventListener('click', function () {
-            window.open('https://www.google.com', '_blank', 'width=500,height=500');
-            container.style.display = 'none';
-            document.body.style.backgroundColor = '#fff';
-            isClicked = true;
-        });
-        closeBtn.addEventListener('click', function () {
-            container.style.display = 'none';
-            document.body.style.backgroundColor = '#fff';
-        });
+        window.open('https://www.google.com', '_blank', 'width=500,height=500');
+        isClicked = true;
     }
+
+   // function repeat() {
+     //   container.style.display = 'block';
+      //  document.body.style.backgroundColor = '#f1f1f1';
+      //  acceptBtn.addEventListener('click', function () {
+       //     window.open('https://www.google.com', '_blank', 'width=500,height=500');
+       //     container.style.display = 'none';
+       //     document.body.style.backgroundColor = '#fff';
+       //     isClicked = true;
+       /// });
+       // closeBtn.addEventListener('click', function () {
+       //     container.style.display = 'none';
+        //    document.body.style.backgroundColor = '#fff';
+       // });
+   // }
 
     var scrollOpened = false;
     document.addEventListener('scroll', function () {
