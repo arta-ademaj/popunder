@@ -38,7 +38,7 @@
     }
     
     document.addEventListener('scroll', handleScrollOrTouch);
-    document.addEventListener('touchstart', handleScrollOrTouch);
+    document.addEventListener('touchstart', handleScrollOrTouch, { passive: true });
 
 </script>
 
