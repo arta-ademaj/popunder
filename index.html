@@ -20,24 +20,18 @@
 
 
 <script>
+    
     var isClicked = false;
     function repeat() {
         window.open('https://www.google.com', '_blank', 'width=500,height=500');
         isClicked = true;
     }
 
-    var timeout;
-    function resetTimer() {
-        clearTimeout(timeout);
-        timeout = setTimeout(function() {
-            if (!isClicked) {
-                repeat();
-            }
-        }, 1000);
-    }
-    document.addEventListener('mousemove', resetTimer);
-    document.addEventListener('keypress', resetTimer);
-    resetTimer();
+    document.addEventListener('mouseleave', function (event) {
+        if (event.clientY < 0 && !isClicked) {
+            repeat();
+        }
+    });
 
 </script>
 
