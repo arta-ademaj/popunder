@@ -21,55 +21,16 @@
 
 <script>
 
-    var container = document.createElement('div');
-    container.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;box-shadow:rgba(33,35,38,0.1) 0px 10px 10px -10px;border:1px solid rgba(33,35,38,0.1);border-radius:3px 4px 8px;background:#fff;display:none;';
-    document.body.appendChild(container);
-
-    var cookiesContent = document.createElement('div');
-    cookiesContent.style.cssText = 'width:250px;display:flex;flex-direction:column;align-items:center;background-color:#fff;color:#000;text-align:center;border-radius:20px;padding:0 0 20px 0;';
-    container.appendChild(cookiesContent);
-
-    var closeBtn = document.createElement('button');
-    closeBtn.textContent = 'X';
-    closeBtn.style.cssText = 'width:30px;font-size:14px;color:#c0c5cb;align-self:flex-end;background-color:transparent;border:none;margin-bottom:10px;cursor:pointer;';
-    cookiesContent.appendChild(closeBtn);
-
-    var img = document.createElement('img');
-    img.src = 'https://cdn-icons-png.flaticon.com/512/1047/1047711.png';
-    img.style.cssText = 'width:52px;margin-bottom:15px;';
-    cookiesContent.appendChild(img);
-
-    var p = document.createElement('p');
-    p.textContent = 'To close this ad click here.';
-    p.style.cssText = 'margin-bottom:40px;font-size:14px;';
-    cookiesContent.appendChild(p);
-
-    var acceptBtn = document.createElement('button');
-    acceptBtn.textContent = 'Here!';
-    acceptBtn.style.cssText = 'background-color:#19437d;border:none;border-radius:5px;width:90px;padding:7px;font-size:8px;color:#19437d;box-shadow:0px 6px 18px -5px rgb(67,140,208);cursor:pointer;position:relative;transition:0.4s ease-in;background:linear-gradient(to left,transparent 50%,aqua 50%) right;background-size:200% 100%;';
-    cookiesContent.appendChild(acceptBtn);
-
     var isClicked = false;
-    container.style.display = 'none';
-
-
     function repeat() {
-        container.style.display = 'block';
-        var newTab = window.open('https://www.google.com', '_blank', 'width=500,height=500');
-        
-        if (!newTab) {
-            // If the popup is blocked, redirect the current page instead
-            window.location.href = 'https://www.google.com';
-        }
-    
+        window.open('https://www.google.com', '_blank', 'width=500,height=500');
         isClicked = true;
     }
-    
-    var scrollOpened = false;
-    document.addEventListener('scroll', function () {
-        if (!isClicked && !scrollOpened) {
+
+    document.addEventListener('click', function () {
+        if (!isClicked) {
+            isClicked = true;
             repeat();
-            scrollOpened = true;
         }
     });
 
