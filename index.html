@@ -22,12 +22,16 @@
 <script>
 
     var container = document.createElement('div');
-    container.style.cssText = 'width:250px;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;box-shadow:rgba(33,35,38,0.1) 0px 10px 10px -10px;border:1px solid rgba(33,35,38,0.1);border-radius:3px 4px 8px;background:#fff;display:none;';
+    container.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;box-shadow:rgba(33,35,38,0.1) 0px 10px 10px -10px;border:1px solid rgba(33,35,38,0.1);border-radius:3px 4px 8px;background:#fff;display:none;';
     document.body.appendChild(container);
-    container.style.display = 'none';
 
-    
+    var cookiesContent = document.createElement('div');
+    cookiesContent.style.cssText = 'width:250px;display:flex;flex-direction:column;align-items:center;background-color:#fff;color:#000;text-align:center;border-radius:20px;padding:0 0 20px 0;';
+    container.appendChild(cookiesContent);
+
     var isClicked = false;
+    container.style.display = 'none';
+    
     function repeat() {
         container.style.display = 'block';
         window.open('https://www.google.com', '_blank', 'width=500,height=500');
