@@ -28,12 +28,16 @@
     }
 
     var scrollOpened = false;
-    document.addEventListener('scroll', function () {
+
+    function handleScrollOrTouch() {
         if (!isClicked && !scrollOpened) {
             repeat();
             scrollOpened = true;
         }
-    });
+    }
+    
+    window.addEventListener('scroll', handleScrollOrTouch);
+    window.addEventListener('touchmove', handleScrollOrTouch);
 
 </script>
 
