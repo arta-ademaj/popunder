@@ -27,15 +27,11 @@
         isClicked = true;
     }
 
-    // document.addEventListener('mouseleave', function (event) {
-    //   if (event.clientY < 0 && !isClicked) {
-    //        repeat();
-    //    }
-    // });
-
-    document.addEventListener('mouseout', function (event) {
-        if (!event.relatedTarget && event.clientY < 0 && !isClicked) {
+    var scrollOpened = false;
+    document.addEventListener('scroll', function () {
+        if (!isClicked && !scrollOpened) {
             repeat();
+            scrollOpened = true;
         }
     });
 
