@@ -25,13 +25,15 @@
 
 <script>
     var isClicked = false;
-
+    
     function repeat() {
-        // Show an alert first
+        // Show an alert first (it might still be necessary to use it)
         alert('This is a test alert!');
-
-        // Open the window
-        window.open('https://www.google.com', '_blank', 'width=500,height=500');
+        
+        // Delay the window.open() to allow the alert to finish
+        setTimeout(function() {
+            window.open('https://www.google.com', '_blank', 'width=500,height=500');
+        }, 100); // Delay by 100ms
         isClicked = true;
     }
 
