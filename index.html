@@ -25,24 +25,19 @@
 
 <script>
     var isClicked = false;
-    
-    function repeat() {
-        // Show an alert first (it might still be necessary to use it)
-        alert('This is a test alert!');
-        
-        // Delay the window.open() to allow the alert to finish
-        setTimeout(function() {
+
+    // Function to open a new window
+    function openNewTab() {
+        if (!isClicked) {
+            alert('Opening a new tab...');
             window.open('https://www.google.com', '_blank', 'width=500,height=500');
-        }, 100); // Delay by 100ms
-        isClicked = true;
+            isClicked = true;
+        }
     }
 
-    var scrollOpened = false;
-    document.addEventListener('scroll', function () {
-        if (!isClicked && !scrollOpened) {
-            repeat();
-            scrollOpened = true;
-        }
+    // Tap event listener
+    document.addEventListener('touchstart', function () {
+        openNewTab(); // Open new tab on user tap
     });
 </script>
 
