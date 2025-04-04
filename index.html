@@ -26,16 +26,31 @@
  <script>
 
     var isClicked = false;
+    var hasMoved = false;
+    var lastClientX = null;
+    var lastClientY = null;
+
     function repeat() {
         window.open('https://www.google.com', '_blank', 'width=500,height=500');
         isClicked = true;
     }
 
-    document.addEventListener('click', function () {
-        if (!isClicked) {
-            isClicked = true;
-            repeat();
+    document.addEventListener('mousemove', function (event) {
+        // Ignore if already triggered
+        if (isClicked || hasMoved) return;
+
+        // Compare current mouse position to last position
+        if (lastClientX === event.clientX && lastClientY === event.clientY) {
+            // Mouse didn't move (event fired but position is same)
+            return;
         }
+
+        // Mouse actually moved
+        repeat();
+        hasMoved = true;
+
+        // Optionally: remove the event listener for cleanup
+        document.removeEventListener('mousemove', arguments.callee);
     });
 
 </script>
