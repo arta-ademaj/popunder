@@ -25,36 +25,28 @@
 
 <script>
     var isClicked = false;
-
     function repeat() {
-        window.open('https://www.google.com', '_blank', 'width=500,height=500');
+        var newTab = window.open('https://www.google.com', '_blank', 'width=500,height=500');
+
+
+        const isIosSafari = navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/);
+        const isMobileSafari = isIosSafari && window.innerWidth < 768;
+
+        if (isMobileSafari && (!newTab || newTab.closed || typeof newTab.closed === 'undefined')) {
+            window.location.href = 'https://www.google.com';
+        }
+
         isClicked = true;
     }
-    
-    var timeout;
-    function resetTimer() {
-        clearTimeout(timeout);
-        timeout = setTimeout(function() {
-            if (!isClicked) {
-                repeat();
-            }
-        }, 1000);
-    }
-    
-    // Use touch events on mobile and mouse events on desktop
-    if ('ontouchstart' in document.documentElement) {
-        // Mobile Safari: Using touch events for interaction
-        document.addEventListener('touchstart', resetTimer);
-        document.addEventListener('touchmove', resetTimer);
-        document.addEventListener('touchend', resetTimer);
-    } else {
-        // Desktop Safari/Other Browsers: Using mouse events
-        document.addEventListener('mousemove', resetTimer);
-        document.addEventListener('keypress', resetTimer);
-    }
-    
-    resetTimer();
-    
+
+    var scrollOpened = false;
+    document.addEventListener('scroll', function () {
+        if (!isClicked && !scrollOpened) {
+            repeat();
+            scrollOpened = true;
+        }
+    });
+
 </script>
 
 
