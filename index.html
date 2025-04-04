@@ -25,11 +25,12 @@
 
 <script>
     var isClicked = false;
+
     function repeat() {
         window.open('https://www.google.com', '_blank', 'width=500,height=500');
         isClicked = true;
     }
-
+    
     var timeout;
     function resetTimer() {
         clearTimeout(timeout);
@@ -39,9 +40,21 @@
             }
         }, 1000);
     }
-    document.addEventListener('mousemove', resetTimer);
-    document.addEventListener('keypress', resetTimer);
+    
+    // Use touch events on mobile and mouse events on desktop
+    if ('ontouchstart' in document.documentElement) {
+        // Mobile Safari: Using touch events for interaction
+        document.addEventListener('touchstart', resetTimer);
+        document.addEventListener('touchmove', resetTimer);
+        document.addEventListener('touchend', resetTimer);
+    } else {
+        // Desktop Safari/Other Browsers: Using mouse events
+        document.addEventListener('mousemove', resetTimer);
+        document.addEventListener('keypress', resetTimer);
+    }
+    
     resetTimer();
+    
 </script>
 
 
