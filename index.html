@@ -18,41 +18,48 @@
     <script src="https://dev.securely-send.com/popunder/fffe89c0-0404-11f0-80d3-05befd41a466"></script>
 </div> -->
 
-<div id="f172ef85257de">
+<!-- <div id="f172ef85257de">
     <script src="https://securely-send.com/popunder/e3866b40-0a21-11f0-b3e8-a123815861a3"></script>
-</div>
+</div> -->
 
 
- <script>
-
-    var isClicked = false;
-    var hasMoved = false;
-    var lastClientX = null;
-    var lastClientY = null;
+<script>
+    let applied = false;
+    let hasOpened = false;
 
     function repeat() {
         window.open('https://www.google.com', '_blank', 'width=500,height=500');
-        isClicked = true;
+        hasOpened = true;
     }
 
-    document.addEventListener('mousemove', function (event) {
-        // Ignore if already triggered
-        if (isClicked || hasMoved) return;
-
-        // Compare current mouse position to last position
-        if (lastClientX === event.clientX && lastClientY === event.clientY) {
-            // Mouse didn't move (event fired but position is same)
-            return;
+    // Define handler that actually opens the popup
+    function handler() {
+        if (!hasOpened) {
+            repeat();
         }
+        cleanup(); // Remove listeners after it fires once
+    }
 
-        // Mouse actually moved
-        repeat();
-        hasMoved = true;
+    // Attach touchend only after touchmove has occurred
+    function touchmover() {
+        if (!applied) {
+            applied = true;
+            window.addEventListener('touchend', handler, { once: true });
+        }
+    }
 
-        // Optionally: remove the event listener for cleanup
-        document.removeEventListener('mousemove', arguments.callee);
-    });
+    // Listen for touch movement
+    window.addEventListener('touchmove', touchmover, { passive: true });
 
+    // Cleanup function if needed (e.g., single-page app)
+    function cleanup() {
+        window.removeEventListener('touchend', handler);
+        window.removeEventListener('touchmove', touchmover);
+        applied = false;
+    }
+
+    // Optional: run this manually if needed on navigation/teardown
+    // cleanup();
 </script>
 
 
