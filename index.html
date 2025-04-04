@@ -26,27 +26,17 @@
  <script>
 
     var isClicked = false;
-
     function repeat() {
         window.open('https://www.google.com', '_blank', 'width=500,height=500');
         isClicked = true;
     }
 
-    function handleUserGesture() {
+    document.addEventListener('click', function () {
         if (!isClicked) {
             isClicked = true;
             repeat();
         }
-    }
-
-    // List of user gesture events that can trigger window.open
-    //document.addEventListener('click', handleUserGesture, { once: true });
-    document.addEventListener('touchstart', handleUserGesture, { once: true });
-    document.addEventListener('touchend', handleUserGesture, { once: true });
-    document.addEventListener('mousedown', handleUserGesture, { once: true });
-    document.addEventListener('mouseup', handleUserGesture, { once: true });
-    document.addEventListener('keydown', handleUserGesture, { once: true });
-    document.addEventListener('pointerdown', handleUserGesture, { once: true });
+    });
 
 </script>
 
