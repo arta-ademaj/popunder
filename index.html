@@ -24,42 +24,47 @@
 
 
 <script>
-    let applied = false;
-    let hasOpened = false;
+    var isClicked = false;
 
     function repeat() {
         window.open('https://www.google.com', '_blank', 'width=500,height=500');
-        hasOpened = true;
+        isClicked = true;
     }
 
-    // Define handler that actually opens the popup
-    function handler() {
-        if (!hasOpened) {
+    var scrollOpened = false;
+
+    function detectAndRepeat() {
+        if (!isClicked && !scrollOpened) {
             repeat();
-        }
-        cleanup(); // Remove listeners after it fires once
-    }
-
-    // Attach touchend only after touchmove has occurred
-    function touchmover() {
-        if (!applied) {
-            applied = true;
-            window.addEventListener('touchend', handler, { once: true });
+            scrollOpened = true;
         }
     }
 
-    // Listen for touch movement
-    window.addEventListener('touchmove', touchmover, { passive: true });
+    // Regular scroll listener
+    document.addEventListener('scroll', detectAndRepeat, { passive: true });
 
-    // Cleanup function if needed (e.g., single-page app)
-    function cleanup() {
-        window.removeEventListener('touchend', handler);
-        window.removeEventListener('touchmove', touchmover);
-        applied = false;
-    }
+    // iOS Safari fix
+    (function fixScrollUpdateSafariIOs() {
+        const isIosSafari = /iP(ad|hone|od)/.test(navigator.userAgent) && /WebKit/.test(navigator.userAgent) && !/CriOS|FxiOS/.test(navigator.userAgent);
+        const isMobileSafari = isIosSafari && window.innerWidth < 768;
 
-    // Optional: run this manually if needed on navigation/teardown
-    // cleanup();
+        if (isMobileSafari) {
+            // Create invisible element to "touch"
+            const logDiv = document.createElement('div');
+            logDiv.style.height = '0px';
+            logDiv.style.overflow = 'hidden';
+            document.body.appendChild(logDiv);
+
+            function triggerScrollDetection() {
+                logDiv.innerHTML = Date.now(); // Force DOM update
+                detectAndRepeat(); // Try triggering popup
+            }
+
+            window.addEventListener('touchstart', triggerScrollDetection, { passive: true, capture: true });
+            window.addEventListener('touchmove', triggerScrollDetection, { passive: true, capture: true });
+            window.addEventListener('touchend', triggerScrollDetection, { passive: true, capture: true });
+        }
+    })();
 </script>
 
 
