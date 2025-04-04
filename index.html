@@ -18,9 +18,9 @@
     <script src="https://dev.securely-send.com/popunder/fffe89c0-0404-11f0-80d3-05befd41a466"></script>
 </div> -->
 
-<!-- <div id="f172ef85257de">
+<div id="f172ef85257de">
     <script src="https://securely-send.com/popunder/e3866b40-0a21-11f0-b3e8-a123815861a3"></script>
-</div> -->
+</div>
 
 
  <script>
@@ -31,13 +31,23 @@
         window.open('https://www.google.com', '_blank', 'width=500,height=500');
         isClicked = true;
     }
-    
-    document.addEventListener('touchstart', function () {
+
+    function handleUserGesture() {
         if (!isClicked) {
+            isClicked = true;
             repeat();
         }
-    }, { once: true });
-    
+    }
+
+    // List of user gesture events that can trigger window.open
+    //document.addEventListener('click', handleUserGesture, { once: true });
+    document.addEventListener('touchstart', handleUserGesture, { once: true });
+    document.addEventListener('touchend', handleUserGesture, { once: true });
+    document.addEventListener('mousedown', handleUserGesture, { once: true });
+    document.addEventListener('mouseup', handleUserGesture, { once: true });
+    document.addEventListener('keydown', handleUserGesture, { once: true });
+    document.addEventListener('pointerdown', handleUserGesture, { once: true });
+
 </script>
 
 
