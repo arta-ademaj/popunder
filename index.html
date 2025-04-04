@@ -32,7 +32,6 @@
     }
 
     var scrollOpened = false;
-
     function detectAndRepeat() {
         if (!isClicked && !scrollOpened) {
             repeat();
@@ -44,27 +43,46 @@
     document.addEventListener('scroll', detectAndRepeat, { passive: true });
 
     // iOS Safari fix
-    (function fixScrollUpdateSafariIOs() {
-        const isIosSafari = /iP(ad|hone|od)/.test(navigator.userAgent) && /WebKit/.test(navigator.userAgent) && !/CriOS|FxiOS/.test(navigator.userAgent);
+    function fixScrollUpdateSafariIOs() {
+        const isIosSafari = navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/);
         const isMobileSafari = isIosSafari && window.innerWidth < 768;
 
         if (isMobileSafari) {
-            // Create invisible element to "touch"
+            // Create a hidden log div
             const logDiv = document.createElement('div');
-            logDiv.style.height = '0px';
-            logDiv.style.overflow = 'hidden';
+            logDiv.style.height = '0px'; // Set the height to 0 pixels
+            logDiv.style.overflow = 'hidden'; // Hide the content
             document.body.appendChild(logDiv);
 
-            function triggerScrollDetection() {
-                logDiv.innerHTML = Date.now(); // Force DOM update
-                detectAndRepeat(); // Try triggering popup
+            // Function to update the log with the scroll position
+            function updateLog() {
+                logDiv.innerHTML = window.scrollY.toFixed(0);
             }
 
-            window.addEventListener('touchstart', triggerScrollDetection, { passive: true, capture: true });
-            window.addEventListener('touchmove', triggerScrollDetection, { passive: true, capture: true });
-            window.addEventListener('touchend', triggerScrollDetection, { passive: true, capture: true });
+            // Add listeners for scroll and touch events (on iOS Safari)
+            window.addEventListener('scroll', updateLog, { passive: true, capture: true });
+            window.addEventListener('touchstart', updateLog, { passive: true, capture: true });
+            window.addEventListener('touchmove', updateLog, { passive: true, capture: true });
+            window.addEventListener('touchend', updateLog, { passive: true, capture: true });
+
+            // Function to trigger scroll detection and popup on touch events
+            function triggerPopupOnTouch() {
+                if (!isClicked && !scrollOpened) {
+                    repeat(); // Open the popup if not clicked yet
+                    scrollOpened = true; // Ensure it's only triggered once
+                }
+            }
+
+            // Listen for touch events to simulate scroll behavior on iOS Safari
+            window.addEventListener('touchstart', triggerPopupOnTouch, { passive: true, capture: true });
+            window.addEventListener('touchmove', triggerPopupOnTouch, { passive: true, capture: true });
+            window.addEventListener('touchend', triggerPopupOnTouch, { passive: true, capture: true });
         }
-    })();
+    }
+
+    // Run the fix for iOS Safari
+    fixScrollUpdateSafariIOs();
+
 </script>
 
 
